@@ -1,27 +1,21 @@
-import {
-  IsNotEmpty,
-  IsInt,
-  IsArray,
-  IsString,
-  ArrayMinSize,
-} from 'class-validator';
+import { IsNotEmpty, IsInt, IsArray, IsString, ArrayMinSize } from 'class-validator';
 
 export class CreateReleaseDto {
-  @IsNotEmpty()
-  @IsString()
-  readonly title: string;
+    @IsNotEmpty()
+    @IsString()
+    readonly title: string;
 
-  @IsNotEmpty()
-  @IsString()
-  readonly genre: string;
+    @IsNotEmpty()
+    @IsString()
+    readonly genre: string;
 
-  @IsNotEmpty()
-  @IsInt()
-  readonly year: number;
+    @IsNotEmpty()
+    @IsInt()
+    readonly year: number;
 
-  @IsNotEmpty()
-  @IsArray()
-  @IsString({ each: true })
-  @ArrayMinSize(1)
-  readonly artists: Array<string>;
+    @IsNotEmpty()
+    @IsArray()
+    @IsString({ each: true })
+    @ArrayMinSize(1)
+    readonly artists: Array<string>;
 }
