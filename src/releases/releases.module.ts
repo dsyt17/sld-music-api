@@ -3,6 +3,7 @@ import { ReleasesService } from './releases.service';
 import { ReleasesController } from './releases.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Release, ReleaseSchema } from './schemas/release.schema';
+import { Song, SongSchema } from 'src/song/schemas/song.schema';
 
 @Module({
   imports: [

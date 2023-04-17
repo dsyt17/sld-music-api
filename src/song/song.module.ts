@@ -3,6 +3,7 @@ import { SongService } from './song.service';
 import { SongController } from './song.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Song, SongSchema } from './schemas/song.schema';
+import { Release, ReleaseSchema } from 'src/releases/schemas/release.schema';
 
 @Module({
   imports: [

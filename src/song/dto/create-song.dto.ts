@@ -13,9 +13,9 @@ export class CreateSongDto {
   @IsString()
   readonly duration: string;
 
-  @IsNotEmpty()
-  @IsString()
-  readonly release: string;
+  //   @IsNotEmpty()
+  //   @IsString()
+  //   readonly release: string;
 
   @IsNotEmpty()
   @IsArray()
