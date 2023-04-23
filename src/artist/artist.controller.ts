@@ -1,5 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 
+import { ErrorMessageType } from 'src/types';
+
 import { ArtistService } from './artist.service';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { Artist } from './schemas/artist.schema';
@@ -14,7 +16,7 @@ export class ArtistController {
     }
 
     @Get(':id')
-    getOne(@Param('id') id: string): Promise<Artist> {
+    getOne(@Param('id') id: string): Promise<Artist | ErrorMessageType> {
         return this.songServise.getById(id);
     }
 

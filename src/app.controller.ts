@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param, Res } from '@nestjs/common';
 
 import { AppService } from './app.service';
 
@@ -9,5 +9,10 @@ export class AppController {
     @Get()
     getHello(): string {
         return 'Hella Players';
+    }
+
+    @Get('assets/:filename')
+    async getFile(@Param('filename') filename: string, @Res() res: any) {
+        res.sendFile(filename, { root: 'assets' });
     }
 }

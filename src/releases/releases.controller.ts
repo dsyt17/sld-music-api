@@ -1,5 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 
+import { ErrorMessageType } from 'src/types';
+
 import { CreateReleaseDto } from './dto/create-release.dto';
 import { ReleasesService } from './releases.service';
 import { Release } from './schemas/release.schema';
@@ -13,9 +15,14 @@ export class ReleasesController {
         return this.releaseServise.getAll();
     }
 
-    @Get(':id')
-    getOne(@Param('id') id: string): Promise<Release> {
-        return this.releaseServise.getById(id);
+    // @Get(':id')
+    // getOne(@Param('id') id: string): Promise<Release | ErrorMessageType> {
+    //     return this.releaseServise.getById(id);
+    // }
+
+    @Get(':link')
+    getOneByLink(@Param('link') link: string): Promise<Release | ErrorMessageType> {
+        return this.releaseServise.getByLink(link);
     }
 
     @Post()

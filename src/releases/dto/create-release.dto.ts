@@ -10,6 +10,10 @@ export class CreateReleaseDto {
     readonly genre: string;
 
     @IsNotEmpty()
+    @IsString()
+    readonly about: string;
+
+    @IsNotEmpty()
     @IsInt()
     readonly year: number;
 

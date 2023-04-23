@@ -14,6 +14,9 @@ export class Release {
     title: string;
 
     @Prop({ required: true })
+    about: string;
+
+    @Prop({ required: true })
     genre: string;
 
     @Prop({ required: true })
