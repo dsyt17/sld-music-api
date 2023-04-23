@@ -44,6 +44,31 @@ export class ArtistService {
         return doc;
     }
 
+    async getByLink(link: string): Promise<Artist | ErrorMessageType> {
+        const doc = await this.artistModel
+            .findOne({ link })
+            .populate({
+                path: 'releases',
+                select: 'title cover artists year link',
+                model: 'Release',
+                populate: {
+                    path: 'artists',
+                    select: 'nickName',
+                    model: 'Artist',
+                },
+            })
+            .populate('songs', 'title prod duration', Song.name);
+
+        if (!doc) {
+            return {
+                status: 'Error',
+                message: `Can't find artist: ${link}`,
+            };
+        }
+
+        return doc;
+    }
+
     async create(releaseDto: CreateArtistDto): Promise<Artist> {
         const newRelease = new this.artistModel(releaseDto);
         return newRelease.save();

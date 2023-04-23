@@ -46,18 +46,12 @@ export class ReleasesService {
     }
 
     async getByLink(link: string): Promise<Release | ErrorMessageType> {
-        let error;
-
         const doc = await this.releaseModel
             .findOne({ link })
             .populate('songs', 'title prod duration', Song.name)
-            .populate('artists', 'nickName', Artist.name)
-            .catch(e => {
-                error = true;
-                return e;
-            });
+            .populate('artists', 'nickName', Artist.name);
 
-        if (error) {
+        if (!doc) {
             return {
                 status: 'Error',
                 message: `Can't find release: ${link}`,

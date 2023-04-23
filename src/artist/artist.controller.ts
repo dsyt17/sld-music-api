@@ -15,9 +15,14 @@ export class ArtistController {
         return this.songServise.getAll();
     }
 
-    @Get(':id')
-    getOne(@Param('id') id: string): Promise<Artist | ErrorMessageType> {
-        return this.songServise.getById(id);
+    // @Get(':id')
+    // getOne(@Param('id') id: string): Promise<Artist | ErrorMessageType> {
+    //     return this.songServise.getById(id);
+    // }
+
+    @Get(':link')
+    getOneByLink(@Param('link') link: string): Promise<Artist | ErrorMessageType> {
+        return this.songServise.getByLink(link);
     }
 
     @Post()
