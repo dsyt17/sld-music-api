@@ -19,7 +19,7 @@ export class ReleasesService {
     async getAll(): Promise<Release[]> {
         return this.releaseModel
             .find()
-            .populate('songs', 'title prod duration', Song.name)
+            .populate('songs', 'title prod duration artists', Song.name)
             .populate('artists', 'nickName', Artist.name)
             .exec();
     }
@@ -27,14 +27,28 @@ export class ReleasesService {
     async getById(id: string): Promise<Release | ErrorMessageType> {
         let error;
 
+        // const doc = await this.releaseModel
+        //     .findById(id)
+        //     .populate('songs', 'title prod duration artists', Song.name)
+        //     .populate('artists', 'nickName', Artist.name)
+        //     .catch(e => {
+        //         error = true;
+        //         return e;
+        //     });
+
         const doc = await this.releaseModel
-            .findById(id)
-            .populate('songs', 'title prod duration', Song.name)
-            .populate('artists', 'nickName', Artist.name)
-            .catch(e => {
-                error = true;
-                return e;
-            });
+            .findById({ id })
+            .populate({
+                path: 'songs',
+                select: 'title prod duration artists',
+                model: 'Song',
+                populate: {
+                    path: 'artists',
+                    select: 'nickName link',
+                    model: 'Artist',
+                },
+            })
+            .populate('artists', 'nickName link', Artist.name);
 
         if (error) {
             return {
@@ -46,10 +60,24 @@ export class ReleasesService {
     }
 
     async getByLink(link: string): Promise<Release | ErrorMessageType> {
+        // const doc = await this.releaseModel
+        //     .findOne({ link })
+        //     .populate('songs', 'title prod duration artists', Song.name)
+        //     .populate('artists', 'nickName', Artist.name);
+
         const doc = await this.releaseModel
             .findOne({ link })
-            .populate('songs', 'title prod duration', Song.name)
-            .populate('artists', 'nickName', Artist.name);
+            .populate({
+                path: 'songs',
+                select: 'title prod duration artists',
+                model: 'Song',
+                populate: {
+                    path: 'artists',
+                    select: 'nickName link',
+                    model: 'Artist',
+                },
+            })
+            .populate('artists', 'nickName link', Artist.name);
 
         if (!doc) {
             return {

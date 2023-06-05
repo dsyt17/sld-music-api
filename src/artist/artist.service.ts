@@ -22,6 +22,13 @@ export class ArtistService {
             .catch(e => e);
     }
 
+    async getAllArtistNames(): Promise<Artist[]> {
+        return this.artistModel
+            .find()
+            .select('nickName link')
+            .catch(e => e);
+    }
+
     async getById(id: string): Promise<Artist | ErrorMessageType> {
         let error;
 

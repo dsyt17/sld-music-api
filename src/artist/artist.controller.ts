@@ -8,11 +8,16 @@ import { Artist } from './schemas/artist.schema';
 
 @Controller('artist')
 export class ArtistController {
-    constructor(private readonly songServise: ArtistService) {}
+    constructor(private readonly artistServise: ArtistService) {}
 
     @Get()
     getAll(): Promise<Artist[]> {
-        return this.songServise.getAll();
+        return this.artistServise.getAll();
+    }
+
+    @Get('all')
+    getAllArtistNames(): Promise<Artist[]> {
+        return this.artistServise.getAllArtistNames();
     }
 
     // @Get(':id')
@@ -22,21 +27,21 @@ export class ArtistController {
 
     @Get(':link')
     getOneByLink(@Param('link') link: string): Promise<Artist | ErrorMessageType> {
-        return this.songServise.getByLink(link);
+        return this.artistServise.getByLink(link);
     }
 
     @Post()
     create(@Body() createReleaseDto: CreateArtistDto): Promise<Artist> {
-        return this.songServise.create(createReleaseDto);
+        return this.artistServise.create(createReleaseDto);
     }
 
     @Delete(':id')
     remove(@Param('id') id): Promise<Artist> {
-        return this.songServise.remove(id);
+        return this.artistServise.remove(id);
     }
 
     @Put(':id')
     update(@Body() updateReleaseDto: CreateArtistDto, @Param('id') id): Promise<Artist> {
-        return this.songServise.update(id, updateReleaseDto);
+        return this.artistServise.update(id, updateReleaseDto);
     }
 }
